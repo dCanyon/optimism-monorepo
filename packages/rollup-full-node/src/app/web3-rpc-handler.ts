@@ -173,7 +173,7 @@ export class DefaultWeb3Handler implements Web3Handler, FullnodeHandler {
     )
     // First generate the internalTx calldata
     const internalCalldata = this.generateUnsignedCallCalldata(
-      this.getTimestamp(),
+      await this.getTimestamp(),
       0,
       txObject['to'],
       txObject['data'],
@@ -222,7 +222,7 @@ export class DefaultWeb3Handler implements Web3Handler, FullnodeHandler {
     )
     // First generate the internalTx calldata
     const internalCalldata = this.generateUnsignedCallCalldata(
-      this.getTimestamp(),
+      await this.getTimestamp(),
       0,
       txObject['to'],
       txObject['data'],
@@ -423,8 +423,8 @@ export class DefaultWeb3Handler implements Web3Handler, FullnodeHandler {
    *
    * @returns The seconds since epoch.
    */
-  protected getTimestamp(): number {
-    return Math.round(Date.now() / 1000)
+  protected async getTimestamp(): Promise<number> {
+    return this.executionManager.getTimestamp()
   }
 
   /**
@@ -474,7 +474,7 @@ export class DefaultWeb3Handler implements Web3Handler, FullnodeHandler {
     const ovmTo = ovmTx.to === null ? ZERO_ADDRESS : ovmTx.to
     // Construct the raw transaction calldata
     const internalCalldata = this.generateEOACallCalldata(
-      this.getTimestamp(),
+      await this.getTimestamp(),
       0,
       ovmTx.nonce,
       ovmTo,
@@ -507,7 +507,7 @@ export class DefaultWeb3Handler implements Web3Handler, FullnodeHandler {
     const executionManager: Contract = await deployContract(
       wallet,
       L2ExecutionManagerContractDefinition,
-      [opcodeWhitelistMask, wallet.address, GAS_LIMIT, true],
+      [opcodeWhitelistMask, wallet.address, GAS_LIMIT, 0, true],
       { gasLimit: DEFAULT_ETHNODE_GAS_LIMIT }
     )
 

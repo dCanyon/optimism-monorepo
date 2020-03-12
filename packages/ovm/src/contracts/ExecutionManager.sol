@@ -61,7 +61,8 @@ contract ExecutionManager is FullStateManager {
      * @param _blockGasLimit The block gas limit for OVM blocks
      * @param _overridePurityChecker Set to true to disable purity checking (WARNING: Only do this in test environments)
      */
-    constructor(uint256 _opcodeWhitelistMask, address _owner, uint _blockGasLimit, bool _overridePurityChecker) public {
+    constructor(uint256 _opcodeWhitelistMask, address _owner, uint
+_blockGasLimit, uint _timestamp, bool _overridePurityChecker) public {
         rlp = new RLPEncode();
         // Set override purity checker flag
         overridePurityChecker = _overridePurityChecker;
@@ -76,6 +77,7 @@ contract ExecutionManager is FullStateManager {
         }
 
         executionContext.gasLimit = _blockGasLimit;
+        executionContext.timestamp = _timestamp;
         executionContext.chainId = 108;
 
         // Set our owner
@@ -1051,5 +1053,13 @@ contract ExecutionManager is FullStateManager {
             // write code to returndata
             return(codeContractBytecode, _length)
         }
+    }
+
+    /**
+     * @notice Gets the current OVM timestamp
+     * @return The current OVM timestamp
+     */
+    function getTimestamp() public view returns (uint) {
+        return executionContext.timestamp;
     }
 }

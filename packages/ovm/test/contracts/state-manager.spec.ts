@@ -26,7 +26,7 @@ describe('ExecutionManager', () => {
     executionManager = await deployContract(
       wallet1,
       ExecutionManager,
-      [OPCODE_WHITELIST_MASK, '0x' + '00'.repeat(20), GAS_LIMIT, true],
+      [OPCODE_WHITELIST_MASK, '0x' + '00'.repeat(20), GAS_LIMIT, 0, true],
       { gasLimit: DEFAULT_ETHNODE_GAS_LIMIT }
     )
   })

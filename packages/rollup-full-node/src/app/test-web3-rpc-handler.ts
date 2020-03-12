@@ -64,7 +64,7 @@ export class TestWeb3Handler extends DefaultWeb3Handler {
         return TestWeb3Handler.successString
       case Web3RpcMethods.getTimestamp:
         this.assertParameters(params, 0)
-        return add0x(this.getTimestamp().toString(16))
+        return add0x((await this.getTimestamp()).toString(16))
       case Web3RpcMethods.mine:
         return this.provider.send(Web3RpcMethods.mine, params)
       case Web3RpcMethods.snapshot:
@@ -82,8 +82,8 @@ export class TestWeb3Handler extends DefaultWeb3Handler {
    * Returns the configured timestamp if there is one, else standard timestamp calculation.
    * @returns The timestamp.
    */
-  protected getTimestamp(): number {
-    return super.getTimestamp() + this.timestampIncreaseSeconds
+  protected async getTimestamp(): Promise<number> {
+    return (await super.getTimestamp()) + this.timestampIncreaseSeconds
   }
 
   /**

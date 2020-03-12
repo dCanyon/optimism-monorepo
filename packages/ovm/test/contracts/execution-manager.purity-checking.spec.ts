@@ -36,7 +36,7 @@ describe('Execution Manager -- Purity Checking', () => {
     executionManager = await deployContract(
       wallet,
       ExecutionManager,
-      [OPCODE_WHITELIST_MASK, '0x' + '00'.repeat(20), GAS_LIMIT, false],
+      [OPCODE_WHITELIST_MASK, '0x' + '00'.repeat(20), GAS_LIMIT, 0, false],
       { gasLimit: DEFAULT_ETHNODE_GAS_LIMIT }
     )
   })

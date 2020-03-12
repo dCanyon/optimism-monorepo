@@ -16,8 +16,9 @@ contract L2ExecutionManager is ExecutionManager {
         uint256 _opcodeWhitelistMask,
         address _owner,
         uint _gasLimit,
+        uint _timestamp,
         bool _overridePurityChecker
-    ) ExecutionManager(_opcodeWhitelistMask, _owner, _gasLimit, _overridePurityChecker) public {}
+    ) ExecutionManager(_opcodeWhitelistMask, _owner, _gasLimit, _timestamp, _overridePurityChecker) public {}
 
     /**
     @notice Associates the provided OVM transaction hash with the EVM transaction hash so that we can properly

@@ -1,6 +1,6 @@
 import '../setup'
 /* External Imports */
-import { add0x, getLogger, remove0x } from '@eth-optimism/core-utils'
+import { add0x, getLogger, remove0x, hexStrToNumber } from '@eth-optimism/core-utils'
 import { ethers, ContractFactory } from 'ethers'
 
 /* Internal Imports */
@@ -35,11 +35,7 @@ describe('TestHandler', () => {
         Web3RpcMethods.getTimestamp,
         []
       )
-      const timeAfter = secondsSinceEopch()
-
-      const timestamp: number = parseInt(remove0x(res), 16)
-      timestamp.should.be.gte(currentTime, 'Timestamp out of range')
-      timestamp.should.be.lte(timeAfter, 'Timestamp out of range')
+      hexStrToNumber(res).should.eq(0)
     })
 
     it('should increase timestamp', async () => {
